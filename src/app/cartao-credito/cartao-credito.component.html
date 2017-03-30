@@ -1,0 +1,49 @@
+<div>
+  <h3>Compras no Cartão</h3>
+  <table class="table table-bordered">
+    <tr>
+      <th>Descrição</th>
+      <th>Observações</th>
+      <th>Parcelas</th>
+      <th>Valor</th>
+      <th>Total</th>
+    </tr>
+    <tr *ngFor="let compra of listaCompras;">
+      <td>{{compra.descricao}}</td>
+      <td>{{compra.observacoes}}</td>
+      <td>{{compra.parcelas}}</td>
+      <td>{{compra.valor | currency:'BRL':true}}</td>
+      <td>{{compra.valorTotal() | currency:'BRL':true }}</td>
+    </tr>
+    <tr>
+      <td colspan="3">Total</td>
+      <td>{{ this.valorMes() | currency:'BRL':true }}</td>
+      <td>{{ this.valorTotal() | currency:'BRL':true }}</td>
+    </tr>
+  </table>
+</div>
+<div>
+  <form class="form-group" (ngSubmit)="onSubmit()" #compraCartao="ngForm">
+    <div class="form-group">
+      <label for="descricao">Descrição</label>
+      <input type="text" class="form-control" id="descricao" placeholder="Descrição" required
+              [(ngModel)]="model.descricao" name="descricao">
+    </div>
+    <div class="form-group">
+      <label for="observacoes">Observações</label>
+      <input type="text" class="form-control" id="observacoes"
+             placeholder="Observações" [(ngModel)]="model.observacoes" name="observacoes">
+    </div>
+    <div class="form-group">
+      <label for="valor">Valor da Parcela</label>
+      <input type="number" step="0.01" class="form-control" id="valor" required
+             placeholder="Valor da Parcela" [(ngModel)]="model.valor" name="valor">
+    </div>
+    <div class="form-group">
+      <label for="valor">Quantidade de Parcelas</label>
+      <input type="number" class="form-control" id="parcelas" required
+             placeholder="Quantidade de Parcelas" [(ngModel)]="model.parcelas" name="parcelas">
+    </div>
+    <button class="btn btn-success">Inserir</button>
+  </form>
+</div>
