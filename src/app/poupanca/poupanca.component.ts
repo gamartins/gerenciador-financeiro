@@ -15,6 +15,7 @@ export class PoupancaComponent {
 
   // operacao: Object = {};
   operacao: number[] = [0,0,0];
+  novoItem: ItemPoupanca = new ItemPoupanca("", "", 0.0);
 
   constructor() { }
 
@@ -28,7 +29,17 @@ export class PoupancaComponent {
     return valorTotal;
   }
 
-  onSubmit(){
+  removeConta(item){
+    let index = this.itensPoupanca.indexOf(item);
+    this.itensPoupanca.splice(index, 1);
+  }
+
+  addConta(){
+    this.itensPoupanca.push(this.novoItem);
+    this.novoItem = new ItemPoupanca(" ", "", 0.0);
+  }
+
+  operacaoEmConta(){
 
     // Operação de deposito
     if (this.operacao[1] == 0) {
