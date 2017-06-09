@@ -8,6 +8,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "types": [
+      "firebase"
+    ],
     "lib": [
       "es2016",
       "dom"
