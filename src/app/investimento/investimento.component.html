@@ -1,0 +1,72 @@
+<div>
+   <!-- Apresentação das poupanças -->
+  <div>
+    <h3>Investimentos</h3>
+    <table class="table table-bordered">
+      <tr>
+        <th>Descrição</th>
+        <th>Observações</th>
+        <th>Ações</th>
+        <th>Valor</th>
+      </tr>
+      <tr *ngFor="let item of itensPoupanca;">
+        <td>{{item.descricao}}</td>
+        <td>{{item.observacao}}</td> 
+        <td>
+          <!-- <span (click)="editItem(item)" class="glyphicon glyphicon-pencil" aria-hidden="true"></span> -->
+          <span (click)="removeConta(item)" class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
+        </td>
+        <td>{{item.valor | currency:'BRL':true}}</td>
+      </tr>
+      <tr>
+        <td colspan="3">Total</td>
+        <td>{{valorTotal() | currency:'BRL':true}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Criação de um novo investimento -->
+  <div>
+    <h3>Novo Investimento</h3>
+    <form class="form-inline" (ngSubmit)="addConta()">
+      <div class="form-group">
+        <input type="text" class="form-control" id="descricao" placeholder="Descrição" required name="descricao"
+          [(ngModel)]="novoItem.descricao">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="observacoes" placeholder="Observações" name="observacoes"
+          [(ngModel)]="novoItem.observacao">
+      </div>
+      <button class="btn btn-success" type="submit">Criar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Realização de operações na poupança -->
+  <div>
+    <h3>Realizar operação</h3>
+    <form class="form-inline" #f="ngForm" (ngSubmit)="operacaoEmConta()">
+      <div class="form-group">
+        <select class="form-control" id="nomeContaPoupanca"
+                name="conta" [(ngModel)]="operacao[0]" required>
+          <option *ngFor="let item of itensPoupanca" value={{itensPoupanca.indexOf(item)}}>
+            {{item.descricao}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <select class="form-control" id="tipo"
+                name="tipo" [(ngModel)]="operacao[1]" required>
+          <option value="0">Deposito</option>
+          <option value="1">Resgate</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">R$</div>
+          <input type="number" class="form-control" name="valor" placeholder="Valor" [(ngModel)]="operacao[2]">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">Transferir</button>
+    </form>
+  </div>

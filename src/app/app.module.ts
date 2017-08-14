@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { CartaoCreditoComponent } from './cartao-credito/cartao-credito.component';
 import { RouterModule, Routes } from "@angular/router";
 import { PoupancaComponent } from './poupanca/poupanca.component';
+import { InvestimentoComponent } from './investimento/investimento.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -16,14 +17,16 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 const appRoutes: Routes = [
   {path: 'cartao-credito', component: CartaoCreditoComponent},
-  {path: 'poupanca', component: PoupancaComponent}
+  {path: 'poupanca', component: PoupancaComponent},
+  {path: 'investimentos', component: InvestimentoComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     CartaoCreditoComponent,
-    PoupancaComponent
+    PoupancaComponent,
+    InvestimentoComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
