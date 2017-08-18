@@ -1,0 +1,55 @@
+<div>
+  <div>
+    <h3>Resumo de {{ months[month] }}</h3>
+    <table class="table table-bordered">
+      <tr>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>Opções</th>
+        <th>Valor</th>
+      </tr>
+      <tr *ngFor="let item of entries; let i = index">
+        <td>{{ item.name }}</td>
+        <td>{{ types[item.type] }}</td>
+        <td>
+          <span class="glyphicon glyphicon-trash remove_entry" aria-hidden="true" 
+            (click)="removeItem(item.key)"></span>
+        </td>
+        <td>{{ item.value | currency:'BRL':true }}</td>
+      </tr>
+      <tr>
+        <th colspan="3">Total</th>
+        <td>{{ getTotal() | currency:'BRL':true }}</td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <h3>Novo Lançamento</h3>
+    <form class="form-inline add_entry" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="sr-only" for="entry_name">Nome do Lançamento</label>
+        <input type="text" class="form-control" id="entry_name" placeholder="Nome do Lançamento" [(ngModel)]="lancamento.name" name="name">
+      </div>
+      <div class="form-group">
+          <label class="sr-only" for="entry_type">Nome do Lançamento</label>
+          <select class="form-control" id="entry_type" [(ngModel)]="lancamento.type" name="type">
+              <option [ngValue]="0">Provento</option>
+              <option [ngValue]="1">Desconto</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="value">Valor</label>
+        <input type="number" class="form-control" id="value" placeholder="R$ 109.90" 
+          [(ngModel)]="lancamento.value" name="value">
+      </div>
+      <button type="submit" class="btn btn-default">Inserir</button>
+    </form>
+  </div>
+  <div class="text-center">
+    <ul class="pagination">
+      <li *ngFor="let month of months; let i = index">
+        <a (click)="updateMonth(i)"> {{ month }} </a>
+      </li>
+    </ul>
+  <div>
+</div>
