@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Lancamento } from "./lancamento";
 import { FirebaseListObservable, AngularFireDatabase } from "angularfire2/database";
 import { Subscription } from "rxjs/Subscription";
+import { AuthService } from "../services/auth.service";
+import { key } from "firebase-key";
 
 @Component({
   selector: 'app-lancamento',
@@ -18,14 +20,14 @@ export class LancamentoComponent implements OnInit {
   subscription: Subscription;
   lancamento: Lancamento = new Lancamento(null, this.month, 0, null);
 
-  constructor(public db: AngularFireDatabase) { }
+  constructor(public db: AngularFireDatabase, private authService: AuthService) { }
 
   ngOnInit() { 
     this.getEntries();
   }
 
   getEntries(){
-    this.firebaseObservable = this.db.list('/lancamentos', { 
+    this.firebaseObservable = this.db.list('/user/' + this.authService.uuid +'/lancamentos', { 
       query: { 
         orderByChild: 'month',
         equalTo: this.month
@@ -34,8 +36,10 @@ export class LancamentoComponent implements OnInit {
     this.subscription = this.firebaseObservable.subscribe(val => {
       this.entries = [];
       val.forEach(element => {
-        this.entries.push(
-          new Lancamento(element.name, element.month, element.type, element.value, element.$key));
+        // let lancamento = new Lancamento(element.name, element.month, element.type, element.value, element.$key);
+        let lancamento = new Lancamento(element.name, element.month, element.type, element.value);
+        lancamento['$key'] = element.$key;
+        this.entries.push(lancamento)
       });
     });
   }
@@ -51,14 +55,12 @@ export class LancamentoComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.entries.push(this.entry);
     this.firebaseObservable.push(this.lancamento);
     this.lancamento = new Lancamento("", this.month, 0, 0);
   }
 
   removeItem(index: string) {
     this.firebaseObservable.remove(index);
-    // this.entries.splice(index, 1);
   }
 
   getTotal(){

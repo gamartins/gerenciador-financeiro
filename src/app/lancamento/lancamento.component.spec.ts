@@ -10,6 +10,7 @@ import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/databa
 
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/of';
+import { AuthService } from "../services/auth.service";
 
 describe('LancamentoComponent', () => {
   let component: LancamentoComponent;
@@ -23,7 +24,8 @@ describe('LancamentoComponent', () => {
       imports: [ FormsModule ],
       providers: [
         { provide: AngularFireDatabase, useClass: AngularFireDatabaseMock },
-        { provide: FirebaseListObservable, useClass: FirebaseListObservableMock }
+        { provide: FirebaseListObservable, useClass: FirebaseListObservableMock },
+        { provide: AuthService, useClass: AuthServiceMock },
       ]
     })
     .compileComponents();
@@ -145,9 +147,13 @@ describe('LancamentoComponent', () => {
   it('should call remove to the server when a Lancamento is deleted from the table', () => {
     component.firebaseObservable = fixture.debugElement.injector.get(FirebaseListObservable);
     const spy = spyOn(component.firebaseObservable, 'remove').and.callThrough();
+
+    let valor1 =
     component.entries = [
-      new Lancamento("Aluguel", component.month, 1, 500, '-KrhtohNG4P4M2YRT8rn'),
-      new Lancamento('Internet', component.month, 1, 69.25, '-Krhtyje3u23m8Lu10zm') ];
+      new Lancamento("Aluguel", component.month, 1, 500),
+      new Lancamento('Internet', component.month, 1, 69.25) ];
+    component.entries[0]["$key"] = '-KrhtohNG4P4M2YRT8rn'
+    component.entries[1]["$key"] = '-Krhtyje3u23m8Lu10zm'
     fixture.detectChanges();
     
     debugElement = fixture.debugElement.query(By.css('.remove_entry'));
@@ -190,4 +196,8 @@ export class FirebaseListObservableMock {
   public push(value: any) { }
   public update(item: string, value: Object) { }
   public remove(value: string) {}
+}
+
+export class AuthServiceMock {
+
 }

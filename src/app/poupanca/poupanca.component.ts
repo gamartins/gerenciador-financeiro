@@ -1,6 +1,7 @@
   import { Component, OnInit } from '@angular/core';
   import { ItemPoupanca } from './item-poupanca';
   import { AngularFireDatabase, FirebaseListObservable  } from 'angularfire2/database';
+  import { AuthService } from "../services/auth.service";
 
   @Component({
     selector: 'app-poupanca',
@@ -10,16 +11,15 @@
   export class PoupancaComponent implements OnInit {
 
     itensPoupanca: Array<ItemPoupanca> = [
-      // new ItemPoupanca("Viagem - 2017", "", 1700.00),
-      // new ItemPoupanca("Cursos", "", 530.00)
     ];
 
     listObservable: FirebaseListObservable<any>;
     operacao: number[] = [0,0,0];
     novoItem: ItemPoupanca = new ItemPoupanca('', '', 0.0);
 
-    constructor(db: AngularFireDatabase) {
-      this.listObservable = db.list('conta_poupanca');
+    constructor(db: AngularFireDatabase, authService: AuthService) {
+      let uuid = authService.uuid;
+      this.listObservable = db.list('user/' + uuid + '/conta_poupanca');
     }
 
     ngOnInit(): void {
@@ -38,7 +38,6 @@
           item.setKey(key);
           this.itensPoupanca.push(item);
         });
-        console.log(this.itensPoupanca);
       });
     }
 

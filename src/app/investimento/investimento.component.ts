@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemPoupanca } from '../poupanca/item-poupanca';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-investimento',
@@ -14,8 +15,9 @@ export class InvestimentoComponent implements OnInit {
   operacao: number[] = [0, 0, 0];
   novoItem: ItemPoupanca = new ItemPoupanca('', '', 0.0);
 
-  constructor(db: AngularFireDatabase) {
-    this.listObservable = db.list('investimento');
+  constructor(db: AngularFireDatabase, authService: AuthService) {
+    let uuid = authService.uuid;
+    this.listObservable = db.list('user/' + uuid + '/investimento');
   }
 
   ngOnInit(): void {

@@ -13,7 +13,7 @@
         <td>{{ types[item.type] }}</td>
         <td>
           <span class="glyphicon glyphicon-trash remove_entry" aria-hidden="true" 
-            (click)="removeItem(item.key)"></span>
+            (click)="removeItem(item.$key)"></span>
         </td>
         <td>{{ item.value | currency:'BRL':true }}</td>
       </tr>

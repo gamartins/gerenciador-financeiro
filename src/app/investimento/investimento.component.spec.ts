@@ -9,6 +9,7 @@ import { ItemPoupanca } from '../poupanca/item-poupanca';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { AuthService } from "../services/auth.service";
 
 describe('InvestimentoComponent', () => {
 
@@ -24,7 +25,8 @@ describe('InvestimentoComponent', () => {
       imports: [ FormsModule ],
       providers: [
         { provide: AngularFireDatabase, useClass: AngularFireDatabaseMock},
-        { provide: FirebaseListObservable, useClass: FirebaseListObservableMock }
+        { provide: FirebaseListObservable, useClass: FirebaseListObservableMock },
+        { provide: AuthService, useClass: AuthServiceMock }
       ]
     })
     .compileComponents();
@@ -158,4 +160,8 @@ export class FirebaseListObservableMock {
   update(item: string, value: Object) {
 
   }
+}
+
+export class AuthServiceMock {
+  
 }

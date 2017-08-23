@@ -7,11 +7,15 @@ import * as firebase from 'firebase/app';
 @Injectable()
 export class AuthService implements CanActivate {
   public user: Observable<firebase.User>;
+  public uuid;
   
   constructor(
     public firebaseAuth: AngularFireAuth,
     public router: Router) {
       this.user = firebaseAuth.authState
+      this.user.subscribe(val => {
+        this.uuid = val.uid
+      })
   }
   
   canActivate() {

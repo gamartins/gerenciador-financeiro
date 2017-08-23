@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable  } from "angularfire2/database";
 import { CompraCartao} from './compra-cartao';
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-cartao-credito',
@@ -15,8 +16,9 @@ export class CartaoCreditoComponent implements OnInit{
   isEdit = false;
   indexOfObject = null;
 
-  constructor(db: AngularFireDatabase) {
-    this.listOservable = db.list('compras_cartao');
+  constructor(db: AngularFireDatabase, authService: AuthService) {
+    let uuid = authService.uuid
+    this.listOservable = db.list('user/' + uuid + '/compras_cartao');
   }
   
   ngOnInit(): void {
@@ -36,7 +38,6 @@ export class CartaoCreditoComponent implements OnInit{
         compra.setKey(key);
         this.listaCompras.push(compra);
       });
-      console.log(this.listaCompras);
     });
   }
 
@@ -44,7 +45,6 @@ export class CartaoCreditoComponent implements OnInit{
     // Verificando se estamos inserindo um objeto ou editando um existente
     if (!this.isEdit) {
       // Salvando no AngularFire 2
-      console.log(this.model);
       this.listOservable.push(this.model);
     } else {
       this.listOservable.update(this.model.getKey(), this.model);
