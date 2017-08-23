@@ -12,15 +12,18 @@ import { PoupancaComponent } from './poupanca/poupanca.component';
 import { InvestimentoComponent } from './investimento/investimento.component';
 
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from "angularfire2/auth";
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { LancamentoComponent } from './lancamento/lancamento.component';
-
+import { SigninComponent } from './signin/signin.component';
+import { AuthService } from "./services/auth.service";
 
 const appRoutes: Routes = [
-  {path: 'cartao-credito', component: CartaoCreditoComponent},
-  {path: 'poupanca', component: PoupancaComponent},
-  {path: 'investimentos', component: InvestimentoComponent},
-  {path: 'lancamentos', component: LancamentoComponent}
+  { path: 'signin', component: SigninComponent },
+  { path: 'cartao-credito', component: CartaoCreditoComponent, canActivate: [AuthService] },
+  { path: 'poupanca', component: PoupancaComponent, canActivate: [AuthService] },
+  { path: 'investimentos', component: InvestimentoComponent, canActivate: [AuthService] },
+  { path: 'lancamentos', component: LancamentoComponent, canActivate: [AuthService] },
 ];
 
 @NgModule({
@@ -30,16 +33,18 @@ const appRoutes: Routes = [
     PoupancaComponent,
     InvestimentoComponent,
     LancamentoComponent,
+    SigninComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

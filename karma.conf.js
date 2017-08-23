@@ -29,7 +29,8 @@ module.exports = function (config) {
     specReporter: {
         maxLogLines: 3,             // limit number of lines logged per test
         suppressErrorSummary: true, // do not print error summary
-        showSpecTiming: true,      // print the time elapsed for each spec
+        suppressPassed: true,      // do not print information about passed tests         
+        showSpecTiming: true,       // print the time elapsed for each spec
       },
 
     port: 9876,
