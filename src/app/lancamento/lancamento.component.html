@@ -4,12 +4,14 @@
     <table class="table table-bordered">
       <tr>
         <th>Nome</th>
+        <th>Grupo</th>
         <th>Tipo</th>
         <th>Opções</th>
         <th>Valor</th>
       </tr>
       <tr *ngFor="let item of entries; let i = index">
         <td>{{ item.name }}</td>
+        <td>{{ groups[item.group] }}</td>
         <td>{{ types[item.type] }}</td>
         <td>
           <span class="glyphicon glyphicon-trash remove_entry" aria-hidden="true" 
@@ -18,7 +20,7 @@
         <td>{{ item.value | currency:'BRL':true }}</td>
       </tr>
       <tr>
-        <th colspan="3">Total</th>
+        <th colspan="4">Total</th>
         <td>{{ getTotal() | currency:'BRL':true }}</td>
       </tr>
     </table>
@@ -29,6 +31,12 @@
       <div class="form-group">
         <label class="sr-only" for="entry_name">Nome do Lançamento</label>
         <input type="text" class="form-control" id="entry_name" placeholder="Nome do Lançamento" [(ngModel)]="lancamento.name" name="name">
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="entry_type">Grupo do Lançamento</label>
+        <select class="form-control" id="entry_group" [(ngModel)]="lancamento.group" name="group">
+          <option *ngFor="let groups_item of groups; let i = index" [ngValue]="i">{{ groups_item }}</option>
+        </select>
       </div>
       <div class="form-group">
           <label class="sr-only" for="entry_type">Nome do Lançamento</label>

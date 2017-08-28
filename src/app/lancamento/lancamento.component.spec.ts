@@ -11,6 +11,7 @@ import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/databa
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/of';
 import { AuthService } from "../services/auth.service";
+import { Subscription } from "rxjs/Subscription";
 
 describe('LancamentoComponent', () => {
   let component: LancamentoComponent;
@@ -47,14 +48,15 @@ describe('LancamentoComponent', () => {
     expect(htmlElement).toBeDefined();
   });
 
-  it('Should the table show "name", "tipo", "opções" and "valor".', () => {
+  it('Should the table show "name", "grupo", "tipo", "opções" and "valor".', () => {
     debugElement = fixture.debugElement.query(By.css('table tr'));
     htmlElement = debugElement.nativeElement;
 
     expect(htmlElement.children[0].textContent).toContain('Nome');
-    expect(htmlElement.children[1].textContent).toContain('Tipo');
-    expect(htmlElement.children[2].textContent).toContain('Opções');
-    expect(htmlElement.children[3].textContent).toContain('Valor');
+    expect(htmlElement.children[1].textContent).toContain('Grupo');
+    expect(htmlElement.children[2].textContent).toContain('Tipo');
+    expect(htmlElement.children[3].textContent).toContain('Opções');
+    expect(htmlElement.children[4].textContent).toContain('Valor');
   });
 
   it('should show a pagination for the month', () => {
@@ -90,16 +92,16 @@ describe('LancamentoComponent', () => {
 
   it('should show the books entries for a given month', () => {
     component.entries = [
-      new Lancamento("Aluguel", component.month, 1, 500),
-      new Lancamento('Internet', component.month, 1, 69.25) ];
+      new Lancamento("Aluguel", 0, component.month, 1, 500),
+      new Lancamento('Internet', 0, component.month, 1, 69.25) ];
     fixture.detectChanges();
 
     debugElement = fixture.debugElement.query(By.css('table tr:nth-of-type(3)'));
     htmlElement = debugElement.nativeElement;
     
     expect(htmlElement.children[0].textContent).toContain('Internet');
-    expect(htmlElement.children[1].textContent).toContain('Desconto');
-    expect(htmlElement.children[3].textContent).toContain('R$69.25');
+    expect(htmlElement.children[2].textContent).toContain('Desconto');
+    expect(htmlElement.children[4].textContent).toContain('R$69.25');
   });
 
   it('should show ONLY the entries for a given month', () => {
@@ -123,7 +125,7 @@ describe('LancamentoComponent', () => {
   it('should push added entries for the server', () => {
     component.firebaseObservable = fixture.debugElement.injector.get(FirebaseListObservable);
     const spy = spyOn(component.firebaseObservable, 'push').and.callThrough();
-    const lancamento: Lancamento = new Lancamento("Internet", component.month, 0, 69.00);
+    const lancamento: Lancamento = new Lancamento("Internet", 0, component.month, 0, 69.00);
 
     component.lancamento = lancamento;
     component.onSubmit();
@@ -133,8 +135,8 @@ describe('LancamentoComponent', () => {
 
   it('should show the bank balance at the end of the tablet', () => {
     component.entries = [
-      new Lancamento("Aluguel", component.month, 1, 500),
-      new Lancamento('Internet', component.month, 1, 69.25) ];
+      new Lancamento("Aluguel", 0, component.month, 1, 500),
+      new Lancamento('Internet', 0, component.month, 1, 69.25) ];
     fixture.detectChanges();
 
     debugElement = fixture.debugElement.query(By.css('table tr:nth-of-type(4)'));
@@ -150,8 +152,8 @@ describe('LancamentoComponent', () => {
 
     let valor1 =
     component.entries = [
-      new Lancamento("Aluguel", component.month, 1, 500),
-      new Lancamento('Internet', component.month, 1, 69.25) ];
+      new Lancamento("Aluguel", 0, component.month, 1, 500),
+      new Lancamento('Internet', 0, component.month, 1, 69.25) ];
     component.entries[0]["$key"] = '-KrhtohNG4P4M2YRT8rn'
     component.entries[1]["$key"] = '-Krhtyje3u23m8Lu10zm'
     fixture.detectChanges();
@@ -169,13 +171,30 @@ describe('LancamentoComponent', () => {
     expect(component.firebaseObservable).toBeDefined();
     expect(component.subscription).toBeDefined();
   });
+
+  it('should show de rows ordered by "Group" column', () => {
+    const items = [
+      new Lancamento('Item A', 0, 0, 0, 500.00), // Group -> Alimentação
+      new Lancamento('Item B', 0, 0, 0, 500.00), // Group -> Alimentação
+      new Lancamento('Item C', 0, 1, 0, 500.00), // Group -> Casa
+      new Lancamento('Item D', 0, 0, 0, 500.00), // Group -> Alimentação
+    ]
+
+    component.entries = items
+    component.sortByGroup()
+    fixture.detectChanges()
+
+    debugElement = fixture.debugElement.query(By.css('table tr:nth-of-type(4)'))
+    htmlElement = debugElement.nativeElement
+    expect(htmlElement.children[1].textContent).toContain(component.groups[0])
+  })
 });
 
 export class AngularFireDatabaseMock {
   entries: Array<Lancamento> = [
-    new Lancamento('Aluguel', 1, 0, 500.00),
-    new Lancamento('Internet', 1, 0, 124.90),
-    new Lancamento('Internet', 2, 0, 124.90) ];
+    new Lancamento('Aluguel', 1, 0, 0, 500.00),
+    new Lancamento('Internet', 1, 0, 0, 124.90),
+    new Lancamento('Internet', 2, 0, 0, 124.90) ];
 
   list(path: string, opts?: any) {
     const query_month = opts.query.equalTo;
@@ -196,8 +215,7 @@ export class FirebaseListObservableMock {
   public push(value: any) { }
   public update(item: string, value: Object) { }
   public remove(value: string) {}
+  public subscribe() {}
 }
 
-export class AuthServiceMock {
-
-}
+export class AuthServiceMock { }

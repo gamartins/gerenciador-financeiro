@@ -3,7 +3,6 @@ import { Lancamento } from "./lancamento";
 import { FirebaseListObservable, AngularFireDatabase } from "angularfire2/database";
 import { Subscription } from "rxjs/Subscription";
 import { AuthService } from "../services/auth.service";
-import { key } from "firebase-key";
 
 @Component({
   selector: 'app-lancamento',
@@ -13,12 +12,13 @@ import { key } from "firebase-key";
 export class LancamentoComponent implements OnInit {
 
   months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+  groups = ['Alimentação', 'Casa', 'Educação', 'Lazer', 'Limpeza e Higiene', 'Outros', 'Saúde', ]
   types = ['Provento', 'Desconto'];
   month: number = 1;
   entries: Array<Lancamento> = [];
   firebaseObservable: FirebaseListObservable<any>;
   subscription: Subscription;
-  lancamento: Lancamento = new Lancamento(null, this.month, 0, null);
+  lancamento: Lancamento = new Lancamento(null, this.month, 0, 0, null);
 
   constructor(public db: AngularFireDatabase, private authService: AuthService) { }
 
@@ -36,11 +36,12 @@ export class LancamentoComponent implements OnInit {
     this.subscription = this.firebaseObservable.subscribe(val => {
       this.entries = [];
       val.forEach(element => {
-        // let lancamento = new Lancamento(element.name, element.month, element.type, element.value, element.$key);
-        let lancamento = new Lancamento(element.name, element.month, element.type, element.value);
+        let group = element.group != null ? element.group : 0
+        let lancamento = new Lancamento(element.name, element.month, group, element.type, element.value);
         lancamento['$key'] = element.$key;
-        this.entries.push(lancamento)
+        this.entries.push(lancamento) 
       });
+      this.sortByGroup()
     });
   }
 
@@ -56,7 +57,7 @@ export class LancamentoComponent implements OnInit {
 
   onSubmit() {
     this.firebaseObservable.push(this.lancamento);
-    this.lancamento = new Lancamento("", this.month, 0, 0);
+    this.lancamento = new Lancamento("", this.month, 0, 0, 0);
   }
 
   removeItem(index: string) {
@@ -71,6 +72,13 @@ export class LancamentoComponent implements OnInit {
     });
 
     return total;
+  }
+
+  sortByGroup() {
+    this.entries.sort(function compare(val1: Lancamento, val2: Lancamento) {
+      if (val1.group < val2.group) return -1
+      if (val1.group > val2.group) return 1
+      return 0 })
   }
 
 }
