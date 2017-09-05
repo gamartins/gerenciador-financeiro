@@ -12,11 +12,12 @@ import { PoupancaComponent } from './poupanca/poupanca.component';
 import { InvestimentoComponent } from './investimento/investimento.component';
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from "angularfire2/auth";
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { SigninComponent } from './signin/signin.component';
-import { AuthService } from "./services/auth.service";
+import { AuthService } from './services/auth.service';
+import { AplicacoesFinanceirasComponent } from "./aplicacoes-financeiras/aplicacoes-financeiras.component";
 
 const appRoutes: Routes = [
   { path: 'signin', component: SigninComponent },
@@ -24,6 +25,12 @@ const appRoutes: Routes = [
   { path: 'poupanca', component: PoupancaComponent, canActivate: [AuthService] },
   { path: 'investimentos', component: InvestimentoComponent, canActivate: [AuthService] },
   { path: 'lancamentos', component: LancamentoComponent, canActivate: [AuthService] },
+  { 
+    path: 'emprestado',
+    component: AplicacoesFinanceirasComponent,
+    canActivate: [AuthService],
+    data: { tipoInvestimento: '/emprestado' },
+  },
 ];
 
 @NgModule({
@@ -34,6 +41,7 @@ const appRoutes: Routes = [
     InvestimentoComponent,
     LancamentoComponent,
     SigninComponent,
+    AplicacoesFinanceirasComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
