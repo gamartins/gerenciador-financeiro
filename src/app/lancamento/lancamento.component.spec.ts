@@ -188,6 +188,18 @@ describe('LancamentoComponent', () => {
     htmlElement = debugElement.nativeElement
     expect(htmlElement.children[1].textContent).toContain(component.groups[0])
   })
+
+  it('should mark as active the selected month item', () => {
+    component.month = 1
+    fixture.detectChanges()
+    htmlElement = fixture.debugElement.query(By.css('.active')).nativeElement
+    expect(htmlElement.textContent).toContain('Fev')
+
+    component.month = 2
+    fixture.detectChanges()
+    htmlElement = fixture.debugElement.query(By.css('.active')).nativeElement
+    expect(htmlElement.textContent).toContain('Mar')
+  })
 });
 
 export class AngularFireDatabaseMock {
