@@ -200,6 +200,14 @@ describe('LancamentoComponent', () => {
     htmlElement = fixture.debugElement.query(By.css('.active')).nativeElement
     expect(htmlElement.textContent).toContain('Mar')
   })
+
+  it('should update entry month when call updateMonth()', () => {
+    component.updateMonth(0)
+    expect(component.lancamento.month).toBe(0)
+
+    component.updateMonth(5)
+    expect(component.lancamento.month).toBe(5)
+  })
 });
 
 export class AngularFireDatabaseMock {

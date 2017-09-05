@@ -47,6 +47,7 @@ export class LancamentoComponent implements OnInit {
 
   updateMonth(month_number: number){
     this.month = month_number;
+    this.lancamento.month = this.month
     this.subscription.unsubscribe();
     this.getEntries();
   }

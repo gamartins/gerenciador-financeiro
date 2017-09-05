@@ -55,7 +55,7 @@
   </div>
   <div class="text-center">
     <ul class="pagination">
-      <li *ngFor="let item of months; let i = index" [ngClass]="{active: month==i}">
+      <li *ngFor="let item of months; let i = index" [ngClass]="{active: month == i}">
         <a (click)="updateMonth(i)"> {{ item }} </a>
       </li>
     </ul>
