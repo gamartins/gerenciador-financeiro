@@ -8,7 +8,7 @@ import * as firebase from 'firebase/app';
 export class AuthService implements CanActivate {
   public user: Observable<firebase.User>;
   public uuid;
-  
+
   constructor(
     public firebaseAuth: AngularFireAuth,
     public router: Router) {
@@ -17,7 +17,7 @@ export class AuthService implements CanActivate {
         this.uuid = val.uid
       })
   }
-  
+
   canActivate() {
     this.isLogged() ? '' : this.router.navigateByUrl('/signin')
     return this.isLogged()
@@ -42,6 +42,10 @@ export class AuthService implements CanActivate {
     }).catch(error => {
       console.log(error);
     }); 
+  }
+
+  signUp(email: string, password: string) {
+    this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
   }
 
   signOut(){

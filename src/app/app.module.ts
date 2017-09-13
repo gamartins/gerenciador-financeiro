@@ -17,15 +17,17 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { LancamentoComponent } from './lancamento/lancamento.component';
 import { SigninComponent } from './signin/signin.component';
 import { AuthService } from './services/auth.service';
-import { AplicacoesFinanceirasComponent } from "./aplicacoes-financeiras/aplicacoes-financeiras.component";
+import { AplicacoesFinanceirasComponent } from './aplicacoes-financeiras/aplicacoes-financeiras.component';
+import { SignupComponent } from './signup/signup.component';
 
 const appRoutes: Routes = [
   { path: 'signin', component: SigninComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'cartao-credito', component: CartaoCreditoComponent, canActivate: [AuthService] },
   { path: 'poupanca', component: PoupancaComponent, canActivate: [AuthService] },
   { path: 'investimentos', component: InvestimentoComponent, canActivate: [AuthService] },
   { path: 'lancamentos', component: LancamentoComponent, canActivate: [AuthService] },
-  { 
+  {
     path: 'emprestado',
     component: AplicacoesFinanceirasComponent,
     canActivate: [AuthService],
@@ -42,6 +44,7 @@ const appRoutes: Routes = [
     LancamentoComponent,
     SigninComponent,
     AplicacoesFinanceirasComponent,
+    SignupComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
