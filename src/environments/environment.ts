@@ -6,11 +6,11 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyDnceD9sWt23wvGc9UDGh6Np778tUHQksI",
-    authDomain: "gerenciador-financeiro-12417.firebaseapp.com",
-    databaseURL: "https://gerenciador-financeiro-12417.firebaseio.com",
-    projectId: "gerenciador-financeiro-12417",
-    storageBucket: "gerenciador-financeiro-12417.appspot.com",
-    messagingSenderId: "324332762605"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: ""
   }
 };
