@@ -1,28 +1,46 @@
 # GerenciadorFinanceiro
+Um pequeno gerenciador financeiro feito com Angular2 (que acabou virando 4 no meio do caminho. xD) com armazenamento no firebase.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.5.
+## Table of Contents
+ - [Getting Started](#getting-started)
+ - [Use Cases](#use-cases)
+ - [App Preview](#app-preview)
+ - [Deploying](#deploying)
 
-## Development server
+## Getting Started
+* Clone this repository: `git clone https://github.com/gamartins/gerenciador-financeiro.git`
+* Run npm install from the project root.
+* Configure the file `environment.ts` with the firebase api data.
+* Run `ng serve` in a terminal from the project root.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Use Cases
+* SignIn Component - [ [Template](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/signin/signin.component.html) | [Code](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/signin/signin.component.ts) | [Tests](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/signin/signin.component.spec.ts) ]
+* Signup Component - [ [Template](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/signup/signup.component.html) | [Code](https://github.com/gamartins/minha-dieta/blob/master/src/pages/search/search.ts) | [Tests](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/signup/signup.component.spec.ts) ]
+* Lancamentos Component - [ [Template](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/lancamento/lancamento.component.html) | [Code](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/lancamento/lancamento.component.ts) | [Tests](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/lancamento/lancamento.component.spec.ts) ]
+* CartaoCredito Component - [ [Template](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/cartao-credito/cartao-credito.component.html) | [Code](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/cartao-credito/cartao-credito.component.ts) | [Tests](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/cartao-credito/cartao-credito.component.spec.ts) ]
+* Poupanca | Investimentos | Emprestado Component - [ [Template](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/aplicacoes-financeiras/aplicacoes-financeiras.component.html) | [Code](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/aplicacoes-financeiras/aplicacoes-financeiras.component.ts) | [Tests](https://github.com/gamartins/gerenciador-financeiro/blob/master/src/app/aplicacoes-financeiras/aplicacoes-financeiras.component.tss) ]
 
-## Code scaffolding
+## App Preview
+All app preview screenshots were taken by running `ionic serve --lab`.
+* SignIn Component
+<img src="screenshots/SignInComponent.png" alt="SignInComponent">
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+* Signup Component
+<img src="screenshots/MealDetailsPage.png" alt="SignupComponent">
 
-## Build
+* Lancamentos Component
+<img src="screenshots/LancamentosComponent.png" alt="LancamentosComponent">
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+* CartaoCredito Component
+<img src="screenshots/CartaoCreditoComponent.png" alt="CartaoCreditoComponen">
 
-## Running unit tests
+* Poupanca Component
+<img src="screenshots/PoupancaComponent.png" alt="PoupancaComponent">
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* Investimentos Component
+<img src="screenshots/InvestimentosComponent.png" alt="InvestimentosComponent">
 
-## Running end-to-end tests
+* Emprestado Component
+<img src="screenshots/EmprestadoComponent.png" alt="EmprestadoComponent">
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* To see more images of the webapp, check out the [screenshots directory](https://github.com/gamartins/minha-dieta/tree/master/screenshots)!
