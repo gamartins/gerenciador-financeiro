@@ -13,9 +13,7 @@ export class AuthService implements CanActivate {
     public firebaseAuth: AngularFireAuth,
     public router: Router) {
       this.user = firebaseAuth.authState
-      this.user.subscribe(val => {
-        this.uuid = val.uid
-      })
+      this.user.subscribe(val => val !== null ? this.uuid = val.uid : '' )
   }
 
   canActivate() {
