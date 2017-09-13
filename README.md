@@ -22,25 +22,25 @@ Um pequeno gerenciador financeiro feito com Angular2 (que acabou virando 4 no me
 
 ## App Preview
 All app preview screenshots were taken by running `ionic serve --lab`.
-* SignIn Component
+### SignIn Component
 <img src="screenshots/SignInComponent.png" alt="SignInComponent">
 
-* Signup Component
-<img src="screenshots/MealDetailsPage.png" alt="SignupComponent">
+### Signup Component
+<img src="screenshots/SignInComponent.png" alt="SignupComponent">
 
-* Lancamentos Component
+### Lancamentos Component
 <img src="screenshots/LancamentosComponent.png" alt="LancamentosComponent">
 
-* CartaoCredito Component
+### CartaoCredito Component
 <img src="screenshots/CartaoCreditoComponent.png" alt="CartaoCreditoComponen">
 
-* Poupanca Component
+### Poupanca Component
 <img src="screenshots/PoupancaComponent.png" alt="PoupancaComponent">
 
-* Investimentos Component
+### Investimentos Component
 <img src="screenshots/InvestimentosComponent.png" alt="InvestimentosComponent">
 
-* Emprestado Component
+### Emprestado Component
 <img src="screenshots/EmprestadoComponent.png" alt="EmprestadoComponent">
 
-* To see more images of the webapp, check out the [screenshots directory](https://github.com/gamartins/minha-dieta/tree/master/screenshots)!
+To see more images of the webapp, check out the [screenshots directory](https://github.com/gamartins/minha-dieta/tree/master/screenshots)!
