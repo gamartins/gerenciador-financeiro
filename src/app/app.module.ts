@@ -8,8 +8,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { CartaoCreditoComponent } from './cartao-credito/cartao-credito.component';
 import { RouterModule, Routes } from '@angular/router';
-import { PoupancaComponent } from './poupanca/poupanca.component';
-import { InvestimentoComponent } from './investimento/investimento.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -24,9 +22,19 @@ const appRoutes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'cartao-credito', component: CartaoCreditoComponent, canActivate: [AuthService] },
-  { path: 'poupanca', component: PoupancaComponent, canActivate: [AuthService] },
-  { path: 'investimentos', component: InvestimentoComponent, canActivate: [AuthService] },
   { path: 'lancamentos', component: LancamentoComponent, canActivate: [AuthService] },
+  { 
+    path: 'poupanca',
+    component: AplicacoesFinanceirasComponent,
+    canActivate: [AuthService],
+    data: { tipoInvestimento: '/poupanca' },
+  },
+  { 
+    path: 'investimentos',
+    component: AplicacoesFinanceirasComponent,
+    canActivate: [AuthService],
+    data: { tipoInvestimento: '/investimento' },
+  },
   {
     path: 'emprestado',
     component: AplicacoesFinanceirasComponent,
@@ -39,8 +47,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     CartaoCreditoComponent,
-    PoupancaComponent,
-    InvestimentoComponent,
     LancamentoComponent,
     SigninComponent,
     AplicacoesFinanceirasComponent,

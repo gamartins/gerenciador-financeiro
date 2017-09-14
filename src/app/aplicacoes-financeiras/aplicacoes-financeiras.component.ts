@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemPoupanca } from '../../app/poupanca/item-poupanca';
+import { ItemPoupanca } from './item-poupanca';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from '../../app/services/auth.service';
 import { ActivatedRoute } from "@angular/router";
