@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AplicacoesFinanceirasComponent } from './aplicacoes-financeiras.component';
-import { ItemPoupanca } from "../poupanca/item-poupanca";
+import { ItemPoupanca } from "./item-poupanca";
 import { Observable } from "rxjs/Observable";
 import { DebugElement } from "@angular/core";
 import { FormsModule } from "@angular/forms";
